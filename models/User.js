@@ -64,9 +64,8 @@ userSchema.methods.comparePassword = function(plainpassword, callbackfunction){
     // 왜냐하면 데이터베이스에 있는 암호화된 비밀번호를 복구화 할 수 없기 때문
     // 이것을 구하기 위해서는 bcrypr.compare 메서드를 사용한다
 
-    console.log(this.password);
     bcrypt.compare(plainpassword, this.password, function(err, isMatch){
-        console.log(isMatch);
+       
         // 비밀번호가 다르다면
         // callbackfunction에 err를 넣어 return
         if(err) return callbackfunction(err);
@@ -77,7 +76,7 @@ userSchema.methods.comparePassword = function(plainpassword, callbackfunction){
     }) 
 }
 
-userSchema.methods.generateToken = function(cb){
+userSchema.methods.generateToken = function(cd){
     
     var user = this;
     
@@ -95,7 +94,25 @@ userSchema.methods.generateToken = function(cb){
         cd(null, user);
     })
     
+}
 
+userSchema.statics.findByToken = function(token, cd){
+  var user = this;
+
+  //  토큰을 decode 한다.
+  //  콜백함수의 매개변수인 decoded는 token을 decode한 user의 id값이 나온다
+  //  token을 구성할 때 user._id + secretToken으로 하였으므로
+  // 즉, jwt.sign(user._id.toHexString(), 'secretToken')에서 secretToken을 이용해 user._id의 값을 알아낼 수 있다
+  jwt.verify(token, 'secretToken', function(err, decoded){
+    // 유저 아이디를 이용해서 유저를 찾은 다음에 
+    // 클라이언트에서 가져온 token과 DB에 보관된 토큰이 일치하는지 확인
+    user.findOne({"_id" : decoded, "token" : token}, function(err, user){
+      if(err){
+        return cd(err);
+      }
+      cd(null, user);
+    })
+  } )
 
 }
 
