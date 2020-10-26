@@ -14,7 +14,10 @@ function LandingPage() {
             display:'flex', justifyContent:"center", alignItems:"center",
             width:'100%', height:'100vh'
         }}>
-            <h1>LandingPage</h1>
+            <h1>시작 페이지</h1>
+            <button>
+                로그아웃
+            </button>
         </div>
     )
 }
