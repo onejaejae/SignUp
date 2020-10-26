@@ -2,6 +2,9 @@ import React, { useState }from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action'
 
+// props.history.push를 사용하기 위해 withRouter를 import함
+import { withRouter } from 'react-router-dom';
+
 
 function LoginPage(props) {
     const dispatch = useDispatch();
@@ -61,4 +64,4 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage
+export default withRouter(LoginPage)

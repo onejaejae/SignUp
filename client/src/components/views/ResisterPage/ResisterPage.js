@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action'
+
+// props.history.push를 사용하기 위해 withRouter를 import함
+import { withRouter } from 'react-router-dom';
  
 function ResisterPage(props) {
     const dispatch = useDispatch();
@@ -85,4 +88,4 @@ function ResisterPage(props) {
     )
 }
 
-export default ResisterPage
+export default withRouter(ResisterPage)

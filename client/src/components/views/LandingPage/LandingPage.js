@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 
+// props.history.push를 사용하기 위해 withRouter를 import함
+import { withRouter } from 'react-router-dom';
+
 
 function LandingPage(props) {
     // componentDidMount
@@ -33,4 +36,4 @@ function LandingPage(props) {
     )
 }
 
-export default LandingPage
+export default withRouter(LandingPage)
