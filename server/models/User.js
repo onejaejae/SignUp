@@ -65,10 +65,10 @@ userSchema.methods.comparePassword = function(plainpassword, callbackfunction){
     // 이것을 구하기 위해서는 bcrypr.compare 메서드를 사용한다
 
     bcrypt.compare(plainpassword, this.password, function(err, isMatch){
-       
+     
         // 비밀번호가 다르다면
         // callbackfunction에 err를 넣어 return
-        if(err) return callbackfunction(err);
+        if(err) return callbackfunction(err, isMatch);
 
         // 비밀번호가 같다면
         // isMatch는 true값임, err는 없으므로 unll값을 넣는다

@@ -60,9 +60,10 @@ app.post('/api/users/login', (req, res) => {
         //  요청된 이메일이 데이터 베이스에 있다면 비밀번호가 맞는 비밀번호인지 확인.
         // comparePassword 메서드는 user.js 파일에서 만든다
         user.comparePassword(req.body.password, (err, isMatch) => {
+            console.log(err);
            
             // 비밀번호가 다르다면
-            if(err){
+            if(!isMatch){
                 return res.json({
                     loginSuccess : false,
                     message : "비밀번호가 틀렸습니다"
@@ -116,6 +117,8 @@ app.get('/api/users/logout', auth, (req, res) => {
         })
     })
 })
+
+app.get('/api/hello', (req, res)=>res.send('hello'));
 
 app.listen(port, () => { console.log(`app listening on port ${port}`)});
 
